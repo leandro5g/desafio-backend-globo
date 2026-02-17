@@ -18,4 +18,8 @@ export class Feedback extends BaseEntity<FeedbackProps> {
   get rating(): number {
     return this.props.rating;
   }
+
+  static create(props: FeedbackProps, id?: string): Feedback {
+    return new Feedback(props, id);
+  }
 }
