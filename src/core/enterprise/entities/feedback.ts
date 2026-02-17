@@ -1,14 +1,14 @@
 import { BaseEntity } from "./base-entity";
 
 type FeedbackProps = {
-  userId: string;
+  videoId: string;
   comment: string;
   rating: number;
 }
 
 export class Feedback extends BaseEntity<FeedbackProps> {
-  get userId(): string {
-    return this.props.userId;
+  get videoId(): string {
+    return this.props.videoId;
   }
 
   get comment(): string {
