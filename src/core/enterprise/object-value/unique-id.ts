@@ -11,7 +11,7 @@ export class UniqueId {
     this.value = value || randomUUID();
   }
 
-  get id(): string {
+  get toValue(): string {
     return this.value;
   }
 }
