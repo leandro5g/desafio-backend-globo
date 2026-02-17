@@ -23,4 +23,10 @@ export class Video extends BaseEntity<VideoProps> {
   get thumbnailUrl(): string {
     return this.props.thumbnailUrl;
   }
+
+  static create(props: VideoProps, id?: string): Video {
+    const video = new Video(props, id);
+
+    return video;
+  } 
 }
