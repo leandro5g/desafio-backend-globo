@@ -2,7 +2,7 @@ import { Feedback } from "../../../src/domain/enterprise/entities/feedback"
 import { UniqueId } from "../../../src/domain/enterprise/object-value/unique-id";
 
 export class FakeFeedbackRepository {
-  private feedbacks: Feedback[] = [];
+  public feedbacks: Feedback[] = [];
 
   async create(feedback: Feedback): Promise<void> {
     this.feedbacks.push(feedback);
