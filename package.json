@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:dev": "tsx src/infra/http/express/index.ts",
+    "start:dev": "tsx src/infra/http/index.ts",
     "test": "jest",
     "jest:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
@@ -24,7 +24,13 @@
     "typescript-eslint": "^8.56.0"
   },
   "dependencies": {
+    "@apollo/server": "^5.4.0",
+    "@as-integrations/express5": "^1.1.2",
     "express": "^5.2.1",
-    "tsx": "^4.21.0"
+    "graphql": "^16.12.0",
+    "graphql-scalars": "^1.25.0",
+    "reflect-metadata": "^0.2.2",
+    "tsx": "^4.21.0",
+    "type-graphql": "^2.0.0-rc.3"
   }
 }
