@@ -15,4 +15,9 @@ export class FakeVideosRepository implements IVideosRepository {
     const video = this.videos.find((video) => video.id === id.toValue);
     return Promise.resolve(video || null);
   }
+
+  public async create(video: Video): Promise<void> {
+    this.videos.push(video);
+    return Promise.resolve();
+  }
 }

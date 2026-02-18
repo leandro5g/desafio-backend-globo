@@ -45,4 +45,16 @@ export class PrismaVideosRepository implements IVideosRepository {
       video.id,
     );
   }
+
+  public async create(video: Video): Promise<void> {
+    await this.prisma.video.create({
+      data: {
+        id: video.id,
+        title: video.title,
+        description: video.description,
+        url: video.url,
+        thumbnailUrl: video.thumbnailUrl,
+      },
+    });
+  }
 }

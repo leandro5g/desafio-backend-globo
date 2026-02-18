@@ -20,11 +20,19 @@ type FeedbackModel {
 
 type Mutation {
   createFeedback(data: CreateFeedbackInput!): FeedbackModel!
+  registerVideo(data: RegisterVideoInput!): VideoModel!
 }
 
 type Query {
   feedbacks(limit: Int! = 10, page: Int! = 1, videoId: String!): [FeedbackModel!]!
   videos(limit: Int! = 10, page: Int! = 1): [VideoModel!]!
+}
+
+input RegisterVideoInput {
+  description: String!
+  thumbnailUrl: String!
+  title: String!
+  url: String!
 }
 
 type VideoModel {

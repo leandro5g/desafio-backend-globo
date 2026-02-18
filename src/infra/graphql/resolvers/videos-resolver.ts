@@ -1,36 +1,34 @@
 import { Arg, Int, Mutation, Query, Resolver } from "type-graphql";
-import { FeedbackModel } from "../models/feedback-model";
-import { CreateFeedbackUseCase } from "../../../domain/aplication/use-cases/feedback/create-feedback";
-import { FetchFeedbacksByVideoIdUseCase } from "../../../domain/aplication/use-cases/feedback/fetch-feedbacks-by-video-id";
-import { CreateFeedbackInput } from "../dtos/create-feedback-input";
+import { VideoModel } from "../models/video-model";
+import { FetchVideosUseCase } from "../../../domain/aplication/use-cases/video/fetch-videos";
+import { RegisterVideoUseCase } from "../../../domain/aplication/use-cases/video/register-video";
+import { RegisterVideoInput } from "../dtos/register-video-input";
 
-@Resolver(() => FeedbackModel)
-export class FeedbacksResolver {
+@Resolver(() => VideoModel)
+export class VideosResolver {
   constructor(
-    private readonly createFeedbackUseCase: CreateFeedbackUseCase,
-    private readonly fetchFeedbacksByVideoId: FetchFeedbacksByVideoIdUseCase,
+    private readonly fetchVideosUseCase: FetchVideosUseCase,
+    private readonly registerVideoUseCase: RegisterVideoUseCase,
   ) {}
 
-  @Query(() => [FeedbackModel])
-  async feedbacks(
-    @Arg("videoId", () => String) videoId: string,
+  @Query(() => [VideoModel])
+  async videos(
     @Arg("limit", () => Int, { defaultValue: 10 }) limit: number,
     @Arg("page", () => Int, { defaultValue: 1 }) page: number,
   ) {
-    return this.fetchFeedbacksByVideoId.execute({
-      videoId,
+    return this.fetchVideosUseCase.execute({
       limit,
       page,
     });
   }
 
-  @Mutation(() => FeedbackModel)
-  async createFeedback(@Arg("data") data: CreateFeedbackInput) {
-    await this.createFeedbackUseCase.execute({
-      videoId: data.videoId,
-      comment: data.comment,
-      rating: data.rating,
-      username: data.username,
+  @Mutation(() => VideoModel)
+  async registerVideo(@Arg("data", () => RegisterVideoInput) data: RegisterVideoInput) {
+    await this.registerVideoUseCase.execute({
+      title: data.title,
+      description: data.description,
+      url: data.url,
+      thumbnailUrl: data.thumbnailUrl,
     });
   }
 }
