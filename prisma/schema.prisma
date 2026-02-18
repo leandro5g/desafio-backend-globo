@@ -23,6 +23,8 @@ model Video {
   updatedAt    DateTime @updatedAt
 
   feedbacks Feedback[]
+
+  @@map("videos")
 }
 
 model Feedback {
@@ -35,4 +37,6 @@ model Feedback {
   updatedAt DateTime @updatedAt
 
   video Video @relation(fields: [videoId], references: [id])
+
+  @@map("feedbacks")
 }
