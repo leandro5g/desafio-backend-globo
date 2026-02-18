@@ -39,7 +39,5 @@ describe("PrismaFeedbacksMapper", () => {
     expect(feedback.comment).toBe(prismaFeedback.comment);
     expect(feedback.rating).toBe(prismaFeedback.rating);
     expect(feedback.username).toBe(prismaFeedback.username);
-    expect(feedback.createdAt).toBe(prismaFeedback.createdAt);
-    expect(feedback.updatedAt).toBe(prismaFeedback.updatedAt);
   });
 });

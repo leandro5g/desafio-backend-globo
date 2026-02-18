@@ -13,15 +13,12 @@ export class PrismaFeedbacksMapper {
     };
   }
 
-  static toDomain(feedback: PrismaFeedback): PrismaFeedback {
-    return {
-      id: feedback.id,
+  static toDomain(feedback: PrismaFeedback): Feedback {
+    return Feedback.create({
       videoId: feedback.videoId,
       comment: feedback.comment,
       rating: feedback.rating,
-      createdAt: feedback.createdAt,
-      updatedAt: feedback.updatedAt,
       username: feedback.username,
-    };
+    }, feedback.id);
   }
 }
