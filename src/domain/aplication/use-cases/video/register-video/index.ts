@@ -9,7 +9,9 @@ type RegisterVideoUseCaseRequest = {
 };
 
 export class RegisterVideoUseCase {
-  constructor(private readonly videosRepository: IVideosRepository) {}
+  constructor(
+    private readonly videosRepository: IVideosRepository
+  ) {}
 
   public async execute(request: RegisterVideoUseCaseRequest): Promise<Video> {
     const { title, description, url, thumbnailUrl } = request;
