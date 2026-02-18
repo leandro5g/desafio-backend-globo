@@ -4,6 +4,7 @@ type FeedbackProps = {
   videoId: string;
   comment: string;
   rating: number;
+  username: string;
 }
 
 export class Feedback extends BaseEntity<FeedbackProps> {
@@ -17,6 +18,10 @@ export class Feedback extends BaseEntity<FeedbackProps> {
 
   get rating(): number {
     return this.props.rating;
+  }
+
+  get username(): string {
+    return this.props.username;
   }
 
   static create(props: FeedbackProps, id?: string): Feedback {
