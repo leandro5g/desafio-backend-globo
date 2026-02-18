@@ -1,16 +1,14 @@
+import { Feedback } from "../../../../domain/enterprise/entities/feedback";
 import { PrismaFeedbacksMapper } from "../prisma-feedbacks.mapper";
 
 describe("PrismaFeedbacksMapper", () => {
   it("should map Feedback to Prisma.FeedbackUncheckedCreateInput", () => {
-    const feedback = {
-      id: "123",
-      videoId: "456",
-      comment: "Great video!",
+    const feedback = Feedback.create({
+      videoId: "video123",
+      comment: "Great product!",
       rating: 5,
-      username: "testuser",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
+      username: "john_doe",
+    });
 
     const prismaFeedback = PrismaFeedbacksMapper.toPrisma(feedback);
 
@@ -20,8 +18,6 @@ describe("PrismaFeedbacksMapper", () => {
       comment: feedback.comment,
       rating: feedback.rating,
       username: feedback.username,
-      createdAt: feedback.createdAt,
-      updatedAt: feedback.updatedAt,
     });
   });
 
@@ -46,4 +42,4 @@ describe("PrismaFeedbacksMapper", () => {
     expect(feedback.createdAt).toBe(prismaFeedback.createdAt);
     expect(feedback.updatedAt).toBe(prismaFeedback.updatedAt);
   });
-})
+});
