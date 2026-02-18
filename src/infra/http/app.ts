@@ -4,9 +4,10 @@ import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 import { buildSchema } from "type-graphql";
 import Container from "typedi";
+import path from "node:path";
 
-import "../containers"
-import { resolvers } from "graphql-scalars";
+import "../containers";
+import { appResolvers } from "../graphql/resolvers";
 
 export class App {
   private app: express.Application;
@@ -23,10 +24,10 @@ export class App {
 
   private async initializeGraphql() {
     const schema = await buildSchema({
-      resolvers,
+      resolvers: appResolvers,
       validate: { forbidUnknownValues: false },
       container: Container,
-      emitSchemaFile: true,
+      emitSchemaFile: path.resolve(__dirname, "schema.gql"),
     });
 
     const server = new ApolloServer({ schema });

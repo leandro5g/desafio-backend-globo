@@ -30,6 +30,7 @@ describe("CreateFeedbackUseCase", () => {
       videoId: video.id,
       comment: "Great video!",
       rating: 5,
+      username: "john_doe",
     };
 
     await sut.execute(request);
@@ -37,6 +38,7 @@ describe("CreateFeedbackUseCase", () => {
     expect(fakeFeedbackRepository.feedbacks).toHaveLength(1);
     expect(fakeFeedbackRepository.feedbacks[0]?.comment).toBe(request.comment);
     expect(fakeFeedbackRepository.feedbacks[0]?.rating).toBe(request.rating);
+    expect(fakeFeedbackRepository.feedbacks[0]?.username).toBe(request.username);
   });
 
   it("should not be able to create a feedback for a non-existing video", async () => {
@@ -44,6 +46,7 @@ describe("CreateFeedbackUseCase", () => {
       videoId: "non-existing-video-id",
       comment: "Great video!",
       rating: 5,
+      username: "john_doe",
     };
 
     await expect(sut.execute(request)).rejects.toBeInstanceOf(AppError);

@@ -2,12 +2,15 @@ import { InputType, Field } from "type-graphql";
 
 @InputType()
 export class CreateFeedbackInput {
-  @Field()
+  @Field(() => String)
   videoId: string;
 
-  @Field()
+  @Field(() => String)
   comment: string;
 
-  @Field()
+  @Field(() => Number)
   rating: number;
+
+  @Field(() => String)
+  username: string;
 }

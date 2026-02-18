@@ -8,6 +8,7 @@ type CreateFeedbackUseCaseRequest = {
   videoId: string;
   comment: string;
   rating: number;
+  username: string;
 };
 
 export class CreateFeedbackUseCase {
@@ -16,8 +17,8 @@ export class CreateFeedbackUseCase {
     private readonly videosRepository: IVideosRepository,
   ) {}
 
-  public async execute(request: CreateFeedbackUseCaseRequest): Promise<void> {
-    const { videoId, comment, rating } = request;
+  public async execute(request: CreateFeedbackUseCaseRequest): Promise<Feedback> {
+    const { videoId, comment, rating, username } = request;
 
     const uniqueVideoId = UniqueId.create(videoId);
 
@@ -31,8 +32,11 @@ export class CreateFeedbackUseCase {
       videoId: uniqueVideoId.toValue,
       comment,
       rating,
+      username,
     });
 
     await this.feedbacksRepository.create(feedback);
+
+    return feedback
   }
 }
