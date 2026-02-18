@@ -3,6 +3,9 @@ import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 import { buildSchema } from "type-graphql";
+import Container from "typedi";
+
+import "../containers"
 
 export class App {
   private app: express.Application;
@@ -21,6 +24,7 @@ export class App {
     const schema = await buildSchema({
       resolvers: [],
       validate: { forbidUnknownValues: false },
+      container: Container,
     });
 
     const server = new ApolloServer({ schema });
