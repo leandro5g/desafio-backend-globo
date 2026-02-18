@@ -6,6 +6,7 @@ import { buildSchema } from "type-graphql";
 import Container from "typedi";
 
 import "../containers"
+import { resolvers } from "graphql-scalars";
 
 export class App {
   private app: express.Application;
@@ -22,9 +23,10 @@ export class App {
 
   private async initializeGraphql() {
     const schema = await buildSchema({
-      resolvers: [],
+      resolvers,
       validate: { forbidUnknownValues: false },
       container: Container,
+      emitSchemaFile: true,
     });
 
     const server = new ApolloServer({ schema });
