@@ -23,8 +23,10 @@ export class VideosResolver {
   }
 
   @Mutation(() => VideoModel)
-  async registerVideo(@Arg("data", () => RegisterVideoInput) data: RegisterVideoInput) {
-    await this.registerVideoUseCase.execute({
+  async registerVideo(
+    @Arg("data", () => RegisterVideoInput) data: RegisterVideoInput,
+  ) {
+    return await this.registerVideoUseCase.execute({
       title: data.title,
       description: data.description,
       url: data.url,

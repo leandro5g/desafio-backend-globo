@@ -1,9 +1,11 @@
+import { Service } from "typedi";
 import { PrismaClient } from "../../../../generated/prisma/client";
 import { IPaginationProps } from "../../../domain/enterprise/dtos/pagination-props";
 import { Video } from "../../../domain/enterprise/entities/video";
 import { UniqueId } from "../../../domain/enterprise/object-value/unique-id";
 import { IVideosRepository } from "../../../domain/enterprise/repositories";
 
+@Service()
 export class PrismaVideosRepository implements IVideosRepository {
   constructor(private readonly prisma: PrismaClient) {}
 

@@ -3,7 +3,7 @@ import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 import { buildSchema } from "type-graphql";
-import Container from "typedi";
+import { Container } from "typedi";
 import path from "node:path";
 
 import "../containers";

@@ -1,4 +1,4 @@
-import Container, { Token } from "typedi";
+import { Token, Container } from "typedi";
 import type {
   IFeedbacksRepository,
   IVideosRepository,
@@ -24,3 +24,4 @@ Container.set(
   FEEDBACKS_REPOSITORY_TOKEN,
   new PrismaFeedbacksRepository(Container.get(PRISMA_CLIENT_TOKEN)),
 );
+
