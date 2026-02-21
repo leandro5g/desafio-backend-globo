@@ -3,19 +3,22 @@ import { PrismaClient } from "../../../../generated/prisma/client";
 import { IPaginationProps } from "../../../domain/enterprise/dtos/pagination-props";
 import { Video } from "../../../domain/enterprise/entities/video";
 import { UniqueId } from "../../../domain/enterprise/object-value/unique-id";
-import { IVideosRepository } from "../../../domain/enterprise/repositories";
+import { IFindAllVideosResponse, IVideosRepository } from "../../../domain/enterprise/repositories";
 
 @Service()
 export class PrismaVideosRepository implements IVideosRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
-  public async findAll(props: IPaginationProps): Promise<Video[]> {
-    const videos = await this.prisma.video.findMany({
-      skip: (props.page - 1) * props.limit,
-      take: props.limit,
-    });
+  public async findAll(props: IPaginationProps): Promise<IFindAllVideosResponse> {
+    const [total, videos] = await this.prisma.$transaction([
+      this.prisma.video.count(),
+      this.prisma.video.findMany({
+        skip: (props.page - 1) * props.limit,
+        take: props.limit,
+      }),
+    ])
 
-    return videos.map((video) =>
+    const videosEntities = videos.map((video) =>
       Video.create(
         {
           title: video.title,
@@ -26,6 +29,11 @@ export class PrismaVideosRepository implements IVideosRepository {
         video.id,
       ),
     );
+
+    return {
+      total,
+      videos: videosEntities,
+    }
   }
 
   public async findById(id: UniqueId): Promise<Video | null> {

@@ -23,12 +23,14 @@ describe("FetchVideosUseCase", () => {
       );
     }
 
-    const videos = await sut.execute({
+    const { videos, total, totalPages } = await sut.execute({
       limit: 10,
       page: 2,
     });
 
     expect(videos).toBeTruthy();
     expect(videos.length).toBe(5);
+    expect(total).toBe(15);
+    expect(totalPages).toBe(2);
   });
 });

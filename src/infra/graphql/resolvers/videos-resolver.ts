@@ -3,6 +3,7 @@ import { VideoModel } from "../models/video-model";
 import { FetchVideosUseCase } from "../../../domain/aplication/use-cases/video/fetch-videos";
 import { RegisterVideoUseCase } from "../../../domain/aplication/use-cases/video/register-video";
 import { RegisterVideoInput } from "../dtos/register-video-input";
+import { VideosPaginationModel } from "../models/videos-pagination-model";
 
 @Resolver(() => VideoModel)
 export class VideosResolver {
@@ -11,7 +12,7 @@ export class VideosResolver {
     private readonly registerVideoUseCase: RegisterVideoUseCase,
   ) {}
 
-  @Query(() => [VideoModel])
+  @Query(() => VideosPaginationModel)
   async videos(
     @Arg("limit", () => Int, { defaultValue: 10 }) limit: number,
     @Arg("page", () => Int, { defaultValue: 1 }) page: number,

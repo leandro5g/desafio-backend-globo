@@ -1,14 +1,18 @@
 import { Video } from "../../../src/domain/enterprise/entities/video";
 import type { UniqueId } from "../../../src/domain/enterprise/object-value/unique-id";
-import type { IVideosRepository } from "../../../src/domain/enterprise/repositories/videos-repository";
+import type { IFindAllVideosResponse, IVideosRepository } from "../../../src/domain/enterprise/repositories/videos-repository";
 
 export class FakeVideosRepository implements IVideosRepository {
   public videos: Video[] = [];
 
-  public async findAll(data: { limit: number; page: number }): Promise<Video[]> {
+  public async findAll(data: { limit: number; page: number }): Promise<IFindAllVideosResponse> {
     const start = (data.page - 1) * data.limit;
     const end = start + data.limit;
-    return this.videos.slice(start, end);
+    const videos = this.videos.slice(start, end);
+    return {
+      total: this.videos.length,
+      videos,
+    };
   }
 
   public async findById(id: UniqueId): Promise<Video | null> {

@@ -25,7 +25,7 @@ type Mutation {
 
 type Query {
   feedbacks(limit: Int! = 10, page: Int! = 1, videoId: String!): [FeedbackModel!]!
-  videos(limit: Int! = 10, page: Int! = 1): [VideoModel!]!
+  videos(limit: Int! = 10, page: Int! = 1): VideosPaginationModel!
 }
 
 input RegisterVideoInput {
@@ -41,4 +41,10 @@ type VideoModel {
   thumbnailUrl: String!
   title: String!
   url: String!
+}
+
+type VideosPaginationModel {
+  total: Int!
+  totalPages: Int!
+  videos: [VideoModel!]!
 }
