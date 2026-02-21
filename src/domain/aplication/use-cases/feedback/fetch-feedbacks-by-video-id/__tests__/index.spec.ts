@@ -1,3 +1,4 @@
+import e from "express";
 import { FakeFeedbackRepository } from "../../../../../../../__tests__/fakes/repositories/fake-feedback-repository";
 import { FakeVideosRepository } from "../../../../../../../__tests__/fakes/repositories/fake-videos-repository";
 import { Feedback } from "../../../../../enterprise/entities/feedback";
@@ -35,6 +36,7 @@ describe("FetchFeedbacksByVideoIdUseCase", () => {
       videoId: video.id,
       comment: "Great video!",
       rating: 5,
+      username: "john_doe",
     };
 
     fakeFeedbackRepository.feedbacks.push(
@@ -47,11 +49,13 @@ describe("FetchFeedbacksByVideoIdUseCase", () => {
       page: 1,
     };
 
-    const response = await sut.execute(request);
+    const { feedbacks, total, totalPages } = await sut.execute(request);
 
-    expect(response).toHaveLength(1);
-    expect(response[0]?.comment).toBe(feedback.comment);
-    expect(response[0]?.rating).toBe(feedback.rating);
+    expect(feedbacks).toHaveLength(1);
+    expect(feedbacks[0]?.comment).toBe(feedback.comment);
+    expect(feedbacks[0]?.rating).toBe(feedback.rating);
+    expect(total).toBe(1);
+    expect(totalPages).toBe(1);
   });
 
   it("should return paginated feedbacks", async () => {
@@ -71,6 +75,7 @@ describe("FetchFeedbacksByVideoIdUseCase", () => {
         videoId: video.id,
         comment: `Great video! ${i}`,
         rating: 5,
+        username: `john_doe_${i}`,
       };
 
       fakeFeedbackRepository.feedbacks.push(
@@ -84,11 +89,13 @@ describe("FetchFeedbacksByVideoIdUseCase", () => {
       page: 2,
     };
 
-    const response = await sut.execute(request);
+    const { feedbacks, total, totalPages } = await sut.execute(request);
 
-    expect(response).toHaveLength(5);
-    expect(response[0]?.comment).toBe("Great video! 11");
-    expect(response[0]?.rating).toBe(5);
+    expect(feedbacks).toHaveLength(5);
+    expect(feedbacks[0]?.comment).toBe("Great video! 11");
+    expect(feedbacks[0]?.rating).toBe(5);
+    expect(total).toBe(15);
+    expect(totalPages).toBe(2);
   });
 
   it("should throw an error if video does not exist", async () => {

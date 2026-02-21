@@ -18,13 +18,19 @@ type FeedbackModel {
   videoId: String!
 }
 
+type FeedbacksPaginationModel {
+  feedbacks: [FeedbackModel!]!
+  total: Int!
+  totalPages: Int!
+}
+
 type Mutation {
   createFeedback(data: CreateFeedbackInput!): FeedbackModel!
   registerVideo(data: RegisterVideoInput!): VideoModel!
 }
 
 type Query {
-  feedbacks(limit: Int! = 10, page: Int! = 1, videoId: String!): [FeedbackModel!]!
+  feedbacks(limit: Int! = 10, page: Int! = 1, videoId: String!): FeedbacksPaginationModel!
   videos(limit: Int! = 10, page: Int! = 1): VideosPaginationModel!
 }
 

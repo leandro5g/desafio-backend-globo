@@ -6,7 +6,12 @@ export type IFindByVideoIdProps = IPaginationProps & {
   videoId: UniqueId;
 };
 
+export type IFindyByVideoIdResponse = {
+  feedbacks: Feedback[];
+  total: number;
+};
+
 export interface IFeedbacksRepository {
   create(feedback: Feedback): Promise<void>;
-  findByVideoId(props: IFindByVideoIdProps): Promise<Feedback[]>;
+  findByVideoId(props: IFindByVideoIdProps): Promise<IFindyByVideoIdResponse>;
 }

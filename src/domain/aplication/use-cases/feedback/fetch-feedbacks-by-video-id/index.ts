@@ -7,7 +7,13 @@ import { AppError } from "../../../errors/app-error";
 
 type IRequest = IPaginationProps & {
   videoId: string;
-}
+};
+
+type IResponse = {
+  feedbacks: Feedback[];
+  total: number;
+  totalPages: number;
+};
 
 export class FetchFeedbacksByVideoIdUseCase {
   constructor(
@@ -15,7 +21,7 @@ export class FetchFeedbacksByVideoIdUseCase {
     private readonly videosRepository: IVideosRepository,
   ) {}
 
-  public async execute({ videoId, limit, page }: IRequest): Promise<Feedback[]> {
+  public async execute({ videoId, limit, page }: IRequest): Promise<IResponse> {
     const uniqueVideoId = UniqueId.create(videoId);
 
     const video = await this.videosRepository.findById(uniqueVideoId);
@@ -24,13 +30,18 @@ export class FetchFeedbacksByVideoIdUseCase {
       throw new AppError("Video not found");
     }
 
-    const feedbacks =
-      await this.feedbacksRepository.findByVideoId({
-        videoId: uniqueVideoId,
-        limit,
-        page,
-      });
+    const { feedbacks, total } = await this.feedbacksRepository.findByVideoId({
+      videoId: uniqueVideoId,
+      limit,
+      page,
+    });
 
-    return feedbacks;
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      feedbacks,
+      total,
+      totalPages,
+    };
   }
 }

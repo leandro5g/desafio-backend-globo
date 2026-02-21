@@ -3,6 +3,7 @@ import { FeedbackModel } from "../models/feedback-model";
 import { CreateFeedbackUseCase } from "../../../domain/aplication/use-cases/feedback/create-feedback";
 import { FetchFeedbacksByVideoIdUseCase } from "../../../domain/aplication/use-cases/feedback/fetch-feedbacks-by-video-id";
 import { CreateFeedbackInput } from "../dtos/create-feedback-input";
+import { FeedbacksPaginationModel } from "../models/feedbacks-pagination-model";
 
 @Resolver(() => FeedbackModel)
 export class FeedbacksResolver {
@@ -11,7 +12,7 @@ export class FeedbacksResolver {
     private readonly fetchFeedbacksByVideoId: FetchFeedbacksByVideoIdUseCase,
   ) {}
 
-  @Query(() => [FeedbackModel])
+  @Query(() => FeedbacksPaginationModel)
   async feedbacks(
     @Arg("videoId", () => String) videoId: string,
     @Arg("limit", () => Int, { defaultValue: 10 }) limit: number,
