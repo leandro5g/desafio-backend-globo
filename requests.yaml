@@ -1,0 +1,164 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Desafio Globo
+meta:
+  id: wrk_8c8b46d5b78a4e9ea5b3da54d81b08da
+  created: 1771441344341
+  modified: 1771441344341
+  description: ""
+collection:
+  - name: Insomia Request
+    meta:
+      id: fld_275eaa6a09ca4b219f96622eaa6e5c75
+      created: 1771698505391
+      modified: 1771698505391
+      sortKey: -1771698505392
+      description: ""
+    children:
+      - url: "{{ _.BASE_URL }}"
+        name: Registrar Video
+        meta:
+          id: req_9b05217b6d8441c6a193ec8dbfe92906
+          created: 1771441363188
+          modified: 1771698512150
+          isPrivate: false
+          description: ""
+          sortKey: -1771698512110
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation RegisterVideo($data: RegisterVideoInput!)
+            {\n\tregisterVideo(data: $data)
+            {\n\t\tid,\n\t\ttitle,\n\t\tdescription,\n\t\turl,\n\t\tthumbnailUrl\n\t}\n}","operationName":"RegisterVideo","variables":"  {\n    \"data\":
+            {\n      \"title\": \"TanStack Start in 100
+            Seconds\",\n      \"description\": \"Introdução rápida ao TanStack
+            Start (full-stack/DX) (inglês).\",\n      \"url\":
+            \"https://www.youtube.com/watch?v=1fUBWAETmkk\",\n      \"thumbnailUrl\":
+            \"https://img.youtube.com/vi/1fUBWAETmkk/hqdefault.jpg\"\n    }\n  }"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}"
+        name: Buscar Videos
+        meta:
+          id: req_b1fa9a38ead04b6384a6a76f54e41cfe
+          created: 1771446202389
+          modified: 1771698515717
+          isPrivate: false
+          description: ""
+          sortKey: -1771698512310
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n  videos(page: 1, limit: 10)
+            {\n    total\n    totalPages\n    videos
+            {\n      id\n      title\n      url\n      thumbnailUrl\n    }\n  }\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}"
+        name: Registrar Feedback
+        meta:
+          id: req_bd88516e872f45238b44c1daa71e6681
+          created: 1771446369439
+          modified: 1771698514244
+          isPrivate: false
+          description: ""
+          sortKey: -1771698512210
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"mutation CreateFeedback($data: CreateFeedbackInput!)
+            {\n\tcreateFeedback(data: $data) {\n\t\tid,\n\t\t
+            videoId,\n\t\tcomment,\n\t\trating,\n\t\tusername\n\t}\n}","operationName":"CreateFeedback","variables":"{\n\t\"data\":
+            {\n\t\t\"videoId\":
+            \"0e204ab4-951b-4b08-a950-966d66e2bcac\",\n\t\t\"comment\": \"Adorei
+            o video\",\n\t\t\"rating\": 5,\n\t\t\"username\":
+            \"Sousa\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL }}"
+        name: Buscar Feedbacks pelo video
+        meta:
+          id: req_f1e2645ba5f54560a33bd5da9bb81f7e
+          created: 1771446494745
+          modified: 1771698517306
+          isPrivate: false
+          description: ""
+          sortKey: -1771698512410
+        method: POST
+        body:
+          mimeType: application/graphql
+          text: '{"query":"query {\n\tfeedbacks(page: 1, limit: 20, videoId:
+            \"0e204ab4-951b-4b08-a950-966d66e2bcac\") {\n\t\tfeedbacks
+            {\n\t\t\tid,\n\t\tvideoId,\n\t\tcomment,\n\t\trating,\n\t\tusername\n\t\t}\n\t\ttotal\n\t\ttotalPages\n\t}\n}","variables":"{\n\t\"data\":
+            {\n\t\t\"title\": \"Um video\",\n\t\t\"description\":
+            \"adgasgdga\",\n\t\t\"url\": \"httpadasd\",\n\t\t\"thumbnailUrl\":
+            \"weqweqwe\"\n\t}\n}"}'
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.3.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_b2015d8bbb7a9f695af94fc58b3323fcefffeedf
+    created: 1771441344349
+    modified: 1771441344349
+environments:
+  name: Base Environment
+  meta:
+    id: env_b2015d8bbb7a9f695af94fc58b3323fcefffeedf
+    created: 1771441344348
+    modified: 1771681018199
+    isPrivate: false
+  data:
+    BASE_URL: http://localhost:4000/graphql
