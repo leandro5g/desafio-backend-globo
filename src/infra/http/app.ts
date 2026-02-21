@@ -26,7 +26,7 @@ export class App {
       }),
     );
 
-    this.app.options("*", cors());
+    this.app.options(/.*/, cors());
     this.app.use(express.json());
     this.initializeRoutes();
     await this.initializeGraphql();
