@@ -5,6 +5,7 @@ import { expressMiddleware } from "@as-integrations/express5";
 import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import path from "node:path";
+import cors from "cors";
 
 import "../containers";
 import { appResolvers } from "../graphql/resolvers";
@@ -17,6 +18,15 @@ export class App {
   }
 
   public async init() {
+    this.app.use(
+      cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      }),
+    );
+
+    this.app.options("*", cors());
     this.app.use(express.json());
     this.initializeRoutes();
     await this.initializeGraphql();
